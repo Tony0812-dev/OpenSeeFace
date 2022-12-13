@@ -1,4 +1,4 @@
-name: Package using PyInstaller
+name: Package Binary
 on:
   workflow_dispatch:
 
@@ -15,12 +15,10 @@ jobs:
         shell: cmd
         run: |
           choco install vcredist140
-
           xcopy c:\Windows\System32\msvcp140.dll .
           xcopy c:\Windows\System32\vcomp140.dll .
           xcopy c:\Windows\System32\concrt140.dll .
           xcopy c:\Windows\System32\vccorlib140.dll .
-
           make_exe.bat
 
       - name: Move files for uploading
@@ -33,4 +31,4 @@ jobs:
         uses: ./.github/actions/upload-dated-artifact
         with:
           name: windows
-          path: dist # Add the parent directory to prevent a tarbomb
+          path: dist
